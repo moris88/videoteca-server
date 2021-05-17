@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule api/videoteca/titolo=(.*)$ api/videoteca.php?titolo=$1 [QSA,NC,L]
+RewriteRule api/videoteca/genere=(.*)$ api/videoteca.php?genere=$1 [QSA,NC,L]
+RewriteRule api/videoteca/anno=(.*)$ api/videoteca.php?anno=$1 [QSA,NC,L]
+RewriteRule api/videoteca/valutazione=(.*)$ api/videoteca.php?valutazione=$1 [QSA,NC,L]
+RewriteRule api/videoteca/id=(.*)$ api/videoteca.php?id=$1 [QSA,NC,L]
+RewriteRule api/videoteca/create/(.*)$ api/videoteca.php?request=$1 [QSA,NC,L]
+RewriteRule api/videoteca/update/(.*)$ api/videoteca.php?request=$1 [QSA,NC,L]
+RewriteRule api/videoteca/delete/(.*)$ api/videoteca.php?request=$1 [QSA,NC,L]
+RewriteRule api/videoteca/novita/(.*)$ api/novita.php?request=$1 [QSA,NC,L]
+RewriteRule api/videoteca/locandina/(.*)$ api/locandina.php?request=$1 [QSA,NC,L]
+RewriteRule api/videoteca/genere/(.*)$ api/genere.php?request=$1 [QSA,NC,L]
+RewriteRule api/videoteca/utenti/action=(.*)$ api/utenti.php?action=$1 [QSA,NC,L]
+RewriteRule api/videoteca/commenti$ api/commenti.php [QSA,NC,L]
+</IfModule>
