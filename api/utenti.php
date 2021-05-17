@@ -2,6 +2,8 @@
     include_once '../config/database.php';
     include_once '../objects/account.php';
     include_once '../objects/utente.php';
+    include_once '../objects/film.php';
+    include_once '../objects/email.php';
 
     header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json; charset=UTF-8");
@@ -144,6 +146,48 @@
                         );
                     }
                     break;
+                case 'email':
+                    
+                    $utente = new Utente($db);
+
+                    $stmtUtenti = $utente->readAll();
+                    $num = $stmtUtenti->rowCount();
+                    if($num>0){
+                        while ($rowUtente = $stmtUtenti->fetch(PDO::FETCH_ASSOC)){
+                            extract($rowUtente);
+                            $film = new Film($db);
+                            $stmtFilm = $film->novita($id);              
+                    
+                            $num = $stmtFilm->rowCount();
+                            if($num>0){
+
+                                while ($rowFilm = $stmtFilm->fetch(PDO::FETCH_ASSOC)){
+                                    extract($rowFilm);
+
+                                    $films_item = array(
+                                        "titolo" => $rowFilm['titolo'],
+                                        "trama" => $rowFilm['tipo'],
+                                        "durata" => $rowFilm['durata'],
+                                    );
+                                }
+                            }
+                            //TO DO EMAIL SEND
+                            send_email($rowUtente,$films_item);
+                        }
+                        //RESPONSE
+                        http_response_code(200);
+                        echo json_encode(
+                            array("message" => "Email inviate.")
+                        );
+                    }else{
+                        http_response_code(500);
+                        echo json_encode(
+                            array("message" => "Nessun utente registrato.")
+                        );
+                    }
+
+
+                    break;  
                 default:
                     http_response_code(500);
                     echo json_encode(
