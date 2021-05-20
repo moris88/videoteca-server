@@ -38,6 +38,7 @@
                         "genere" => $row['tipo'],
                         "locandina" => $row['locandina'],
                         "durata" => $row['durata'],
+                        "trama" => $row['trama'],
                     );
                     array_push($array_output["records"], $films_item);
                 }

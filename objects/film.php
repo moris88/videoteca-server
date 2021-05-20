@@ -236,7 +236,7 @@ class Film{
     }
 
     function novita($limit){
-        $query = "SELECT ".$this->table_name.".id, ".$this->table_name.".titolo, genere.tipo, ".$this->table_name.".locandina, ".$this->table_name.".durata FROM ".$this->table_name." INNER JOIN genere ON ".$this->table_name.".genere_id = genere.id ORDER BY ".$this->table_name.".data_insert DESC LIMIT 0,:limit";
+        $query = "SELECT ".$this->table_name.".id, ".$this->table_name.".titolo, genere.tipo, ".$this->table_name.".locandina, ".$this->table_name.".durata, ".$this->table_name.".trama FROM ".$this->table_name." INNER JOIN genere ON ".$this->table_name.".genere_id = genere.id ORDER BY ".$this->table_name.".data_insert DESC LIMIT 0,:limit";
 
         $stmt = $this->conn->prepare( $query );
 

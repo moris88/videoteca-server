@@ -156,23 +156,25 @@
                         while ($rowUtente = $stmtUtenti->fetch(PDO::FETCH_ASSOC)){
                             extract($rowUtente);
                             $film = new Film($db);
-                            $stmtFilm = $film->novita($id);              
-                    
+                            $stmtFilm = $film->novita(3);              
+                            $films_items = array();
                             $num = $stmtFilm->rowCount();
                             if($num>0){
-
+                                $films_items["films"]=array();
                                 while ($rowFilm = $stmtFilm->fetch(PDO::FETCH_ASSOC)){
                                     extract($rowFilm);
-
-                                    $films_item = array(
+            
+                                    $film_item = array(
                                         "titolo" => $rowFilm['titolo'],
-                                        "trama" => $rowFilm['tipo'],
+                                        "genere" => $rowFilm['tipo'],
                                         "durata" => $rowFilm['durata'],
+                                        "trama" => $rowFilm['trama'],
                                     );
+                                    array_push($films_items["films"], $film_item);
                                 }
                             }
                             //TO DO EMAIL SEND
-                            send_email($rowUtente,$films_item);
+                            send_email($rowUtente,$films_items);
                         }
                         //RESPONSE
                         http_response_code(200);
