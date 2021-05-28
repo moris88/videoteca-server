@@ -13,10 +13,9 @@ RewriteRule api/videoteca/update/(.*)$ api/videoteca.php?request=$1 [QSA,NC,L]
 RewriteRule api/videoteca/delete/(.*)$ api/videoteca.php?request=$1 [QSA,NC,L]
 RewriteRule api/videoteca/novita/(.*)$ api/novita.php?request=$1 [QSA,NC,L]
 RewriteRule api/videoteca/locandina/(.*)$ api/locandina.php?request=$1 [QSA,NC,L]
-
 RewriteRule api/videoteca/genere/(.*)$ api/genere.php?request=$1 [QSA,NC,L]
 
-RewriteRule api/videoteca/utenti/action=(.*)$ api/utenti.php?action=$1 [QSA,NC,L]
+RewriteRule api/utenti/action=(.*)$ api/utenti.php?action=$1 [QSA,NC,L]
 
-RewriteRule api/videoteca/commenti$ api/commenti.php [QSA,NC,L]
+RewriteRule api/commenti$ api/commenti.php [QSA,NC,L]
 </IfModule>
