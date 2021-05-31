@@ -160,6 +160,12 @@ class Utente{
         $this->nickname = uniqid('user_');
     }
 
+    function createPasswordTemp(){
+        $pwd_temp = uniqid();
+        $this->createHashPassword($pwd_temp);
+        return $pwd_temp;
+    }
+
     function verifyPassword(){
         $query = "SELECT pwd FROM ".$this->table_name." WHERE email=:email";
         

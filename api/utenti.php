@@ -146,7 +146,7 @@
                         );
                     }
                     break;
-                case 'email':
+                case 'newsletter':
                     
                     $utente = new Utente($db);
 
@@ -174,7 +174,7 @@
                                 }
                             }
                             //TO DO EMAIL SEND
-                            send_email($rowUtente,$films_items);
+                            send_newsletter($rowUtente,$films_items);
                         }
                         //RESPONSE
                         http_response_code(200);
@@ -187,9 +187,41 @@
                             array("message" => "Nessun utente registrato.")
                         );
                     }
+                    break; 
+                case 'email':
+                    $utente = new Utente($db);
+                    $data = json_decode(file_get_contents("php://input"));
+                    $utente->email = $data->email;
+
+                    if($utente->verifyEmail()){
+                        $pwd_temp = $utente->createPasswordTemp();
+                        $utente->update();
+
+                        
+
+                        send_email($utente,$pwd_temp);
+
+                        //RESPONSE
+                        http_response_code(200);
+                        echo json_encode(
+                            array("message" => "Email con password temporanea inviata.")
+                        );
+                    }else{
+                        http_response_code(500);
+                        echo json_encode(
+                            array("message" => "Nessun utente registrato.")
+                        );
+                    }
 
 
-                    break;  
+
+
+
+
+
+
+
+                    break;
                 default:
                     http_response_code(500);
                     echo json_encode(
